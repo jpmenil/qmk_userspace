@@ -1,0 +1,11 @@
+:thier        -> their
+becuase       -> because
+dosen't       -> doesn't
+fasle         -> false
+lenght        -> length
+queyr         -> query
+reuslt        -> result
+sefl          -> self
+varialbes     -> variables
+widht         -> width
+wihch         -> which
