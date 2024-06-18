@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
         WM1    , WM2    , WM(3)  , WM(4)  , WM(5)  ,                           KC_LEFT, KC_DOWN, KC_UP  ,KC_RIGHT, KC_QUOT,
     //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-        WM(6)  , WM(7)  , WM(8)  , WM(9)  , WM(0)  ,                           KC_HOME, KC_PGUP, KC_PGDN, KC_END , KC_BSLS,
+        WM(6)  , WM(7)  , WM(8)  , WM(9)  , WM(0)  ,                           KC_HOME, KC_PGUP, KC_PGDN, KC_DOT , KC_BSLS,
     //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                        _______ ,    _______ , _______,        _______ ,     MO(4)
     //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [4] = LAYOUT_charybdis_3x5(
     //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-        DF(0)  ,_______ ,_______ ,_______ ,_______ ,                          _______ ,_______ ,  DT_UP , DT_DOWN, DF(1)  ,
+        DF(0)  ,_______ ,_______ ,_______ ,_______ ,                          _______ , KC_END ,  DT_UP , DT_DOWN, DF(1)  ,
     //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
        E_CLOSE , E_SAVE , E_UNDO , E_IDT  ,_______ ,                           WZ_LEFT, WZ_DOWN, WZ_UP  ,WZ_RIGHT, M_BLOCK,
     //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
@@ -226,6 +226,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case LCTL_T(KC_K):
+        case LGUI_T(KC_J):
+            return TAPPING_TERM - 50;
         case KC_MINS:
         case SCLN_MT:
             return TAPPING_TERM - 50;
