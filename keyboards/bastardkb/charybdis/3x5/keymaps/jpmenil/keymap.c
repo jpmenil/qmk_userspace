@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
         DF(0)  ,_______ ,_______ ,_______ ,_______ ,                          _______ , KC_END ,  DT_UP , DT_DOWN, DF(1)  ,
     //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-       E_CLOSE , E_SAVE , E_UNDO , E_IDT  ,_______ ,                           WZ_LEFT, WZ_DOWN, WZ_UP  ,WZ_RIGHT, M_BLOCK,
+       E_CLOSE , E_SAVE , E_UNDO , E_IDT  ,        ,                           WZ_LEFT, WZ_DOWN, WZ_UP  ,WZ_RIGHT, M_BLOCK,
     //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
         E_RS   ,_______ , E_BOB  , E_EOB  ,_______ ,                          WZ_SPLIH, WZ_SLCT, W_BACK , W_FWD  ,WZ_SPLIV,
     //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
@@ -130,13 +130,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case E_CLOSE:
-            if (!record->event.pressed) return true;
-            SEND_STRING(SS_LCTL("x")"#");
-            return false;
         case E_BOB:
             if (!record->event.pressed) return true;
             SEND_STRING(SS_TAP(X_ESC) "<");
+            return false;
+        case E_CLOSE:
+            if (!record->event.pressed) return true;
+            SEND_STRING(SS_LCTL("x")"#");
             return false;
         case E_EOB:
             if (!record->event.pressed) return true;
@@ -228,10 +228,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LCTL_T(KC_K):
         case LGUI_T(KC_J):
-            return TAPPING_TERM - 50;
+            /* return TAPPING_TERM - 50; */
         case KC_MINS:
         case SCLN_MT:
-            return TAPPING_TERM - 50;
+            /* return TAPPING_TERM - 50; */
         default:
             return TAPPING_TERM;
     }

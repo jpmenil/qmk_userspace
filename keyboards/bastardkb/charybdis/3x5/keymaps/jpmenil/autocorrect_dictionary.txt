@@ -68,6 +68,7 @@ stirng        -> string
 strign        -> string
 swithc        -> switch
 swtich        -> switch
+tailh         -> tail
 thresold      -> threshold
 udpate        -> update
 varialbes     -> variables
