@@ -1,9 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "config.h"
-
-// #define LT_1 LT(1, KC_BSPC)
-// #define LT_2 LT(2, KC_TAB)
+#include "features/achordion.h"
 
 #define LT_2 LT(2, KC_BSPC)
 #define LT_3 LT(3, KC_TAB)
@@ -91,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
         A_MT   , S_MT   , D_MT   , F_MT   , KC_MCTL,     KC_MINS, KC_EQL , KC_LCBR, KC_RCBR, KC_PIPE,
         _______, _______, _______, _______, _______,     KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_GRV,
-                          _______, MO(4)  , QK_GESC,     _______, _______
+                          _______, MO(4)  , KC_ESC ,     _______, _______
     ),
     /*╭────────┬────────┬────────┬────────┬────────╮   ╭────────┬────────┬────────┬────────┬────────╮
       │  !     │  @     │  #     │  $     │  %     │   │  ^     │  &     │  *     │  (     │  )     │
@@ -155,6 +153,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_achordion(keycode, record)) {
+    return false;
+  }
   if (record->event.pressed) {
     switch (keycode) {
       case E_BOB:
@@ -210,6 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
   }
+
   switch (keycode) {
     case WM1:
       if (record->tap.count && record->event.pressed) {
@@ -242,9 +244,22 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case F_MT:
     case J_MT:
-    case SCLN_MT:
       return TAPPING_TERM + 15;
     default:
       return TAPPING_TERM;
   }
+}
+
+void matrix_scan_user(void) { achordion_task(); }
+
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+  switch (tap_hold_keycode) {
+    case A_MT:
+    case LT_2:
+    case LT_3:
+    case SCLN_MT:
+      return 0;  // Bypass Achordion for these keys.
+  }
+
+  return 800;  // Otherwise use a timeout of 800 ms.
 }
