@@ -31,7 +31,9 @@
 #define WM2 LT(0, KC_2)
 
 enum custom_keycodes {
-  E_BOB = SAFE_RANGE,
+  B_BACK = SAFE_RANGE,
+  B_FWD,
+  E_BOB,
   E_CLOSE,
   E_EOB,
   E_IDT,
@@ -40,8 +42,6 @@ enum custom_keycodes {
   E_SAVE,
   E_UNDO,
   M_BLOCK,
-  W_BACK,
-  W_FWD,
   WZ_DOWN,
   WZ_LEFT,
   WZ_RGHT,
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [2] = LAYOUT_charybdis_3x5(
         KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
-        A_MT   , S_MT   , D_MT   , F_MT   , KC_MCTL,     KC_MINS, KC_EQL , KC_LCBR, KC_RCBR, KC_PIPE,
+        A_MT   , S_MT   , D_MT   , F_MT   , _______,     KC_MINS, KC_EQL , KC_LCBR, KC_RCBR, KC_PIPE,
         _______, _______, _______, _______, _______,     KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_GRV,
                           _______, MO(4)  , KC_ESC ,     _______, _______
     ),
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [4] = LAYOUT_charybdis_3x5(
         DF(0)  , _______, _______, _______, _______,     _______, KC_END , DT_UP  , DT_DOWN, DF(1)  ,
         E_CLOSE, E_SAVE , E_UNDO , E_IDT  , _______,     WZ_LEFT, WZ_DOWN, WZ_UP  , WZ_RGHT, M_BLOCK,
-        E_RS   , _______, E_BOB  , E_EOB  , _______,     WZ_SPLH, WZ_SLCT, W_BACK , W_FWD  , WZ_SPLV,
+        E_RS   , _______, E_BOB  , E_EOB  , _______,     WZ_SPLH, WZ_SLCT, B_BACK , B_FWD  , WZ_SPLV,
                           _______, _______, _______,     _______, _______
     ),
     /*╭────────┬────────┬────────┬────────┬────────╮   ╭────────┬────────┬────────┬────────┬────────╮
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ├────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┤
       │ E CLOSE│ E SAVE │ E UNDO │ E IDT  │        │   │ WZ LEFT│ WZ DWN │  WZ UP │ WZ RGHT│ M BLOCK│
       ├────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┤
-      │ E RS   │        │ E BOB  │ E EOB  │        │   │ WZ SPLH│ WZ SLCT│ WZ BACK│ WZ FWD │ WZ SPLV│
+      │ E RS   │        │ E BOB  │ E EOB  │        │   │ WZ SPLH│ WZ SLCT│ B BACK │ B FWD  │ WZ SPLV│
       ╰────────┴────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┴────────┴────────╯
                         │        │        │        │   │        │        │
                         ╰────────┴────────┴────────╯   ╰────────┴────────╯*/
@@ -158,6 +158,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   if (record->event.pressed) {
     switch (keycode) {
+      case B_BACK:
+        SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
+        return false;
+      case B_FWD:
+        SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
+        return false;
       case E_BOB:
         SEND_STRING(SS_TAP(X_ESC) "<");
         return false;
@@ -181,12 +187,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       case M_BLOCK:
         SEND_STRING("```");
-        return false;
-      case W_BACK:
-        SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
-        return false;
-      case W_FWD:
-        SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
         return false;
       case WZ_DOWN:
         SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_DOWN))));
@@ -242,9 +242,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case F_MT:
     case J_MT:
-      return TAPPING_TERM + 15;
+    case K_MT:
+    case KC_H:
+    case SCLN_MT:
+      return TAPPING_TERM - 50;
     default:
       return TAPPING_TERM;
   }
@@ -257,6 +259,7 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
     case A_MT:
     case LT_2:
     case LT_3:
+    case K_MT:
     case SCLN_MT:
       return 0;  // Bypass Achordion for these keys.
   }
