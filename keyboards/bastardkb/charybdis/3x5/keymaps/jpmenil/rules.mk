@@ -13,5 +13,3 @@ EXTRAKEY_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 SPACE_CADET_ENABLE = no
-
-SRC += features/achordion.c

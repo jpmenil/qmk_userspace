@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 
 #include "config.h"
-#include "features/achordion.h"
 
 #define LT_2 LT(2, KC_BSPC)
 #define LT_3 LT(3, KC_TAB)
@@ -153,9 +152,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_achordion(keycode, record)) {
-    return false;
-  }
   if (record->event.pressed) {
     switch (keycode) {
       case B_BACK:
@@ -252,17 +248,17 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-void matrix_scan_user(void) { achordion_task(); }
-
-uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-  switch (tap_hold_keycode) {
-    case A_MT:
-    case LT_2:
-    case LT_3:
-    case K_MT:
-    case SCLN_MT:
-      return 0;  // Bypass Achordion for these keys.
-  }
-
-  return 800;  // Otherwise use a timeout of 800 ms.
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t* other_record) {
+    // Exceptionally allow some one-handed chords for hotkeys.
+    switch (tap_hold_keycode) {
+        case A_MT:
+        case LT_2:
+        case LT_3:
+        case K_MT:
+        case SCLN_MT:
+            return true;
+    }
+    // Otherwise defer to the opposite hands rule.
+    return get_chordal_hold_default(tap_hold_record, other_record);
 }
