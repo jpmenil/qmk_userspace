@@ -10,8 +10,8 @@
 #define D_MT LCTL_T(KC_D)
 #define F_MT LGUI_T(KC_F)
 
-#define J_MT LGUI_T(KC_J)
-#define K_MT LCTL_T(KC_K)
+#define J_MT RGUI_T(KC_J)
+#define K_MT RCTL_T(KC_K)
 #define L_MT LALT_T(KC_L)
 #define SCLN_MT RSFT_T(KC_SCLN)
 
@@ -149,9 +149,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         ╰────────┴────────┴────────╯   ╰────────┴────────╯*/
 
 };
+
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
+                  'L', 'L', 'L',  'R', 'R'
+    );
 // clang-format on
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (record->event.pressed) {
     switch (keycode) {
       case B_BACK:
@@ -236,7 +244,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
   switch (keycode) {
     case J_MT:
     case K_MT:
@@ -250,15 +258,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
                       uint16_t other_keycode, keyrecord_t* other_record) {
-    // Exceptionally allow some one-handed chords for hotkeys.
-    switch (tap_hold_keycode) {
-        case A_MT:
-        case LT_2:
-        case LT_3:
-        case K_MT:
-        case SCLN_MT:
-            return true;
-    }
-    // Otherwise defer to the opposite hands rule.
-    return get_chordal_hold_default(tap_hold_record, other_record);
+  // Exceptionally allow some one-handed chords for hotkeys.
+  switch (tap_hold_keycode) {
+    case J_MT:
+    case K_MT:
+    case LT_2:
+    case LT_3:
+    case SCLN_MT:
+      return true;
+  }
+  // Otherwise defer to the opposite hands rule.
+  return get_chordal_hold_default(tap_hold_record, other_record);
 }
