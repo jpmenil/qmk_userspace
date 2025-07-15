@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 
 #include "config.h"
+#include "secrets.h"
 
 #define LT_2 LT(2, KC_BSPC)
 #define LT_3 LT(3, KC_TAB)
+//#define LT_5 LT(5, KC_ESC)
 
 #define A_MT LSFT_T(KC_A)
 #define S_MT LALT_T(KC_S)
@@ -29,6 +31,11 @@
 #define WM1 LT(0, KC_1)
 #define WM2 LT(0, KC_2)
 
+#define DOT_PASTE LT(0, KC_DOT)
+#define SLSH_COPY LT(0, KC_SLSH)
+
+#define MACRO_TIMER 1
+
 enum custom_keycodes {
   B_BACK = SAFE_RANGE,
   B_FWD,
@@ -40,6 +47,8 @@ enum custom_keycodes {
   E_RS,
   E_SAVE,
   E_UNDO,
+  KC_SEC1,
+  KC_SEC2,
   M_BLOCK,
   WZ_DOWN,
   WZ_LEFT,
@@ -55,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_charybdis_3x5(
         KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,     KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,
         A_MT   , S_MT   , D_MT   , F_MT   , KC_G   ,     KC_H   , J_MT   , K_MT   , L_MT   , SCLN_MT,
-        KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,     KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,
+        KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,     KC_N   , KC_M   , KC_COMM, DOT_PASTE, SLSH_COPY,
                           MO(5)  , LT_3   , KC_SPC ,     KC_ENT , LT_2
     ),
     /*╭────────┬────────┬────────┬────────┬────────╮   ╭────────┬────────┬────────┬────────┬────────╮
@@ -71,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_charybdis_3x5(
         KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,     KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN,
         A_MT   , R_MT   , S2_MT  , T_MT   , KC_G   ,     KC_M   , N_MT   , E_MT   , I_MT   , O_MT   ,
-        KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   ,     KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH,
+        KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   ,     KC_K   , KC_H   , KC_COMM, DOT_PASTE , SLSH_COPY,
                           _______, LT_3   , KC_SPC ,     KC_ENT , LT_2
     ),
     /*╭────────┬────────┬────────┬────────┬────────╮   ╭────────┬────────┬────────┬────────┬────────╮
@@ -86,7 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [2] = LAYOUT_charybdis_3x5(
         KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
-        A_MT   , S_MT   , D_MT   , F_MT   , _______,     KC_MINS, KC_EQL , KC_LCBR, KC_RCBR, KC_PIPE,
+        //A_MT   , S_MT   , D_MT   , F_MT   , _______,     KC_MINS, KC_EQL , KC_LCBR, KC_RCBR, KC_PIPE,
+        _______, _______, _______, _______, _______,     KC_MINS, KC_EQL , KC_LCBR, KC_RCBR, KC_PIPE,
         _______, _______, _______, _______, _______,     KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_GRV,
                           _______, MO(4)  , KC_ESC ,     _______, _______
     ),
@@ -118,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [4] = LAYOUT_charybdis_3x5(
         DF(0)  , _______, _______, _______, _______,     _______, KC_END , DT_UP  , DT_DOWN, DF(1)  ,
-        E_CLOSE, E_SAVE , E_UNDO , E_IDT  , _______,     WZ_LEFT, WZ_DOWN, WZ_UP  , WZ_RGHT, M_BLOCK,
-        E_RS   , _______, E_BOB  , E_EOB  , _______,     WZ_SPLH, WZ_SLCT, B_BACK , B_FWD  , WZ_SPLV,
+        E_CLOSE, E_SAVE , E_UNDO , E_IDT  , KC_SEC1,     WZ_LEFT, WZ_DOWN, WZ_UP  , WZ_RGHT, M_BLOCK,
+        E_RS   , _______, E_BOB  , E_EOB  , KC_SEC2,     WZ_SPLH, WZ_SLCT, B_BACK , B_FWD  , WZ_SPLV,
                           _______, _______, _______,     _______, _______
     ),
     /*╭────────┬────────┬────────┬────────┬────────╮   ╭────────┬────────┬────────┬────────┬────────╮
@@ -153,11 +163,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
     LAYOUT(
         'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
+        '*', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', '*',
         'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
-        'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
-                  'L', 'L', 'L',  'R', 'R'
+                  'L', '*', 'L',  'R', '*'
     );
+
 // clang-format on
+static const char* const secrets[] PROGMEM = {
+    secret_0,
+    secret_1,
+};
+
+bool process_record_secrets(uint16_t keycode, keyrecord_t* record) {
+  switch (keycode) {
+    case KC_SEC1 ... KC_SEC2:  // Secrets!  Externally defined strings, not
+                               // stored in repo
+      if (record->event.pressed) {
+        clear_mods();
+        clear_oneshot_mods();
+        send_string_with_delay_P(secrets[keycode - KC_SEC1], MACRO_TIMER);
+      }
+      return false;
+      break;
+  }
+  return true;
+}
+
+// Helper for implementing tap vs. long-press keys. Given a tap-hold
+// key event, replaces the hold function with `long_press_keycode`.
+static bool process_tap_or_long_press_key(keyrecord_t* record,
+                                          uint16_t long_press_keycode) {
+  if (record->tap.count == 0) {  // Key is being held.
+    if (record->event.pressed) {
+      tap_code16(long_press_keycode);
+    }
+    return false;  // Skip default handling.
+  }
+  return true;  // Continue default handling.
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (record->event.pressed) {
@@ -168,6 +211,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       case B_FWD:
         SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
         return false;
+      case SLSH_COPY:  // Comma on tap, Ctrl+C on long press.
+        return process_tap_or_long_press_key(record, G(KC_C));
+      case DOT_PASTE:  // Dot on tap, Ctrl+V on long press.
+        return process_tap_or_long_press_key(record, G(KC_V));
       case E_BOB:
         SEND_STRING(SS_TAP(X_ESC) "<");
         return false;
@@ -241,16 +288,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       return false;
   }
 
-  return true;
+  // return true;
+  return process_record_secrets(keycode, record);
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
   switch (keycode) {
-    case J_MT:
-    case K_MT:
-    case KC_H:
-    case SCLN_MT:
-      return TAPPING_TERM - 50;
+    case A_MT:
+      return TAPPING_TERM + 100;
+    case F_MT:
+      return TAPPING_TERM - 100;
+    case DOT_PASTE:
+    case SLSH_COPY:
+      return TAPPING_TERM - 150;
+    /* case SCLN_MT: */
+    /*   return TAPPING_TERM - 100; */
     default:
       return TAPPING_TERM;
   }
@@ -260,11 +312,10 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
                       uint16_t other_keycode, keyrecord_t* other_record) {
   // Exceptionally allow some one-handed chords for hotkeys.
   switch (tap_hold_keycode) {
-    case J_MT:
-    case K_MT:
-    case LT_2:
-    case LT_3:
-    case SCLN_MT:
+    case KC_MINS:
+    case KC_PIPE:
+      return true;
+    case WM2:
       return true;
   }
   // Otherwise defer to the opposite hands rule.

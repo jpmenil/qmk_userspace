@@ -66,9 +66,10 @@ seperate      -> separate
 singed        -> signed
 stirng        -> string
 strign        -> string
+suod          -> sudo
 swithc        -> switch
 swtich        -> switch
-tailh         -> tail
+tailh         -> tail -f
 thresold      -> threshold
 udpate        -> update
 varialbes     -> variables
