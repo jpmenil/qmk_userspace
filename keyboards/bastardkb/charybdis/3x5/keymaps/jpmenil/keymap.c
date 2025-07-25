@@ -5,7 +5,6 @@
 
 #define LT_2 LT(2, KC_BSPC)
 #define LT_3 LT(3, KC_TAB)
-//#define LT_5 LT(5, KC_ESC)
 
 #define A_MT LSFT_T(KC_A)
 #define S_MT LALT_T(KC_S)
@@ -288,33 +287,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       return false;
   }
 
-  // return true;
   return process_record_secrets(keycode, record);
-}
-
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
-  switch (keycode) {
-    case A_MT:
-      return TAPPING_TERM + 100;
-    case F_MT:
-      return TAPPING_TERM - 100;
-    case DOT_PASTE:
-    case SLSH_COPY:
-      return TAPPING_TERM - 150;
-    /* case SCLN_MT: */
-    /*   return TAPPING_TERM - 100; */
-    default:
-      return TAPPING_TERM;
-  }
 }
 
 bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
                       uint16_t other_keycode, keyrecord_t* other_record) {
   // Exceptionally allow some one-handed chords for hotkeys.
   switch (tap_hold_keycode) {
-    case KC_MINS:
-    case KC_PIPE:
-      return true;
     case WM2:
       return true;
   }
