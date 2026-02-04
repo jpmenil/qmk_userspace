@@ -7,14 +7,18 @@
 #define LT_3 LT(3, KC_TAB)
 
 #define A_MT LSFT_T(KC_A)
+//#define A_MT LGUI_T(KC_A)
 #define S_MT LALT_T(KC_S)
 #define D_MT LCTL_T(KC_D)
 #define F_MT LGUI_T(KC_F)
+//#define F_MT LSFT_T(KC_F)
 
 #define J_MT RGUI_T(KC_J)
-#define K_MT RCTL_T(KC_K)
+//#define J_MT RSFT_T(KC_J)
+#define K_MT LCTL_T(KC_K)
 #define L_MT LALT_T(KC_L)
 #define SCLN_MT RSFT_T(KC_SCLN)
+//#define SCLN_MT LGUI_T(KC_SCLN)
 
 #define R_MT LALT_T(KC_R)
 #define S2_MT LCTL_T(KC_S)
@@ -30,10 +34,11 @@
 #define WM1 LT(0, KC_1)
 #define WM2 LT(0, KC_2)
 
-#define DOT_PASTE LT(0, KC_DOT)
-#define SLSH_COPY LT(0, KC_SLSH)
+#define SLSH_COPY LGUI_T(KC_SLSH)
+#define DOT_PASTE LGUI_T(KC_DOT)
 
-#define MACRO_TIMER 1
+
+// #define MACRO_TIMER 1
 
 enum custom_keycodes {
   B_BACK = SAFE_RANGE,
@@ -48,7 +53,12 @@ enum custom_keycodes {
   E_UNDO,
   KC_SEC1,
   KC_SEC2,
+  KC_SEC3,
+  KC_SEC4,
+  KC_SEC5,
   M_BLOCK,
+  S_NEXT,
+  S_PREV,
   WZ_DOWN,
   WZ_LEFT,
   WZ_RGHT,
@@ -60,7 +70,7 @@ enum custom_keycodes {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_charybdis_3x5(
+    [0] = LAYOUT(
         KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,     KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,
         A_MT   , S_MT   , D_MT   , F_MT   , KC_G   ,     KC_H   , J_MT   , K_MT   , L_MT   , SCLN_MT,
         KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,     KC_N   , KC_M   , KC_COMM, DOT_PASTE, SLSH_COPY,
@@ -76,10 +86,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         │  L5    │  L3/TAB│  SPC   │   │  ENT   │ L2/BSPC│
                         ╰────────┴────────┴────────╯   ╰────────┴────────╯*/
 
-    [1] = LAYOUT_charybdis_3x5(
+    [1] = LAYOUT(
         KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,     KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN,
         A_MT   , R_MT   , S2_MT  , T_MT   , KC_G   ,     KC_M   , N_MT   , E_MT   , I_MT   , O_MT   ,
-        KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   ,     KC_K   , KC_H   , KC_COMM, DOT_PASTE , SLSH_COPY,
+        KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   ,     KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH,
                           _______, LT_3   , KC_SPC ,     KC_ENT , LT_2
     ),
     /*╭────────┬────────┬────────┬────────┬────────╮   ╭────────┬────────┬────────┬────────┬────────╮
@@ -92,24 +102,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         │  L5    │  L3    │  SPC   │   │  ENT   │ L2/BSPC│
                         ╰────────┴────────┴────────╯   ╰────────┴────────╯*/
 
-    [2] = LAYOUT_charybdis_3x5(
+    [2] = LAYOUT(
         KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
-        //A_MT   , S_MT   , D_MT   , F_MT   , _______,     KC_MINS, KC_EQL , KC_LCBR, KC_RCBR, KC_PIPE,
-        _______, _______, _______, _______, _______,     KC_MINS, KC_EQL , KC_LCBR, KC_RCBR, KC_PIPE,
-        _______, _______, _______, _______, _______,     KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_GRV,
+        KC_LABK, KC_RABK, KC_QUOT, KC_DQUO, KC_SCLN,     KC_MINS, KC_EQL , KC_LCBR, KC_RCBR, KC_PIPE,
+        KC_BSLS, KC_SLSH, KC_COLN, KC_QUES, KC_TILD,     KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_GRV,
                           _______, MO(4)  , KC_ESC ,     _______, _______
     ),
     /*╭────────┬────────┬────────┬────────┬────────╮   ╭────────┬────────┬────────┬────────┬────────╮
       │  !     │  @     │  #     │  $     │  %     │   │  ^     │  &     │  *     │  (     │  )     │
       ├────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┤
-      │  A/SFT │  S/ALT │  D/CTL │  F/CMD │  MCTL  │   │  -     │  =     │  {     │  }     │  |     │
+      │  <     │  >     │  '     │  "     │  ;     │   │  -     │  =     │  {     │  }     │  |     │
       ├────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┤
-      │        │        │        │        │        │   │  _     │  +     │  [     │  ]     │  `     │
+      │  \     │  /     │  :     │  ?     │  ~     │   │  _     │  +     │  [     │  ]     │  `     │
       ╰────────┴────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┴────────┴────────╯
                         │        │  L4    │  SPC   │   │  ENT   │ L2/BSPC│
                         ╰────────┴────────┴────────╯   ╰────────┴────────╯*/
 
-    [3] = LAYOUT_charybdis_3x5(
+    [3] = LAYOUT(
         KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   ,
         WM1    , WM2    , WM(3)  , WM(4)  , WM(5)  ,     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_QUOT,
         WM(6)  , WM(7)  , WM(8)  , WM(9)  , WM(0)  ,     KC_HOME, KC_PGUP, KC_PGDN, KC_DOT , KC_BSLS,
@@ -125,8 +134,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         │        │        │        │   │        │ L4     │
                         ╰────────┴────────┴────────╯   ╰────────┴────────╯*/
 
-    [4] = LAYOUT_charybdis_3x5(
-        DF(0)  , _______, _______, _______, _______,     _______, KC_END , DT_UP  , DT_DOWN, DF(1)  ,
+    [4] = LAYOUT(
+        DF(0)  , KC_SEC5, S_PREV , S_NEXT , KC_SEC3,     KC_SEC4, KC_END , DT_UP  , DT_DOWN, DF(1)  ,
         E_CLOSE, E_SAVE , E_UNDO , E_IDT  , KC_SEC1,     WZ_LEFT, WZ_DOWN, WZ_UP  , WZ_RGHT, M_BLOCK,
         E_RS   , _______, E_BOB  , E_EOB  , KC_SEC2,     WZ_SPLH, WZ_SLCT, B_BACK , B_FWD  , WZ_SPLV,
                           _______, _______, _______,     _______, _______
@@ -141,9 +150,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         │        │        │        │   │        │        │
                         ╰────────┴────────┴────────╯   ╰────────┴────────╯*/
 
-    [5] = LAYOUT_charybdis_3x5(
-        _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
-        _______, DRGSCRL, KC_BTN1, KC_BTN2, _______,     _______, _______, _______, _______, _______,
+    [5] = LAYOUT(
+        DB_TOGG, EE_CLR , _______, _______, _______,     _______, _______, _______, _______, _______,
+        LUMBERJ, DRGSCRL, MS_BTN1, MS_BTN2, _______,     _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
                           _______, _______, _______,     _______, _______
     ),
@@ -162,31 +171,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
     LAYOUT(
         'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
-        '*', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', '*',
+        'L', 'L', 'L', 'L', 'L',  '*', 'R', 'R', 'R', 'R',
         'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R',
                   'L', '*', 'L',  'R', '*'
     );
 
 // clang-format on
-static const char* const secrets[] PROGMEM = {
-    secret_0,
-    secret_1,
-};
-
-bool process_record_secrets(uint16_t keycode, keyrecord_t* record) {
-  switch (keycode) {
-    case KC_SEC1 ... KC_SEC2:  // Secrets!  Externally defined strings, not
-                               // stored in repo
-      if (record->event.pressed) {
-        clear_mods();
-        clear_oneshot_mods();
-        send_string_with_delay_P(secrets[keycode - KC_SEC1], MACRO_TIMER);
-      }
-      return false;
-      break;
-  }
-  return true;
-}
 
 // Helper for implementing tap vs. long-press keys. Given a tap-hold
 // key event, replaces the hold function with `long_press_keycode`.
@@ -235,8 +225,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       case E_UNDO:
         SEND_STRING(SS_LCTL("x") "u");
         return false;
+      case KC_SEC1:
+        SEND_STRING(SEC1);
+        return false;
+      case KC_SEC2:
+        SEND_STRING(SEC2);
+        return false;
+      case KC_SEC3:
+        SEND_STRING(SEC3);
+        return false;
+      case KC_SEC4:
+        SEND_STRING(SEC4);
+        return false;
       case M_BLOCK:
         SEND_STRING("```");
+        return false;
+      case S_NEXT:
+        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_RBRC))));
+        return false;
+      case S_PREV:
+        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_LBRC))));
         return false;
       case WZ_DOWN:
         SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_DOWN))));
@@ -287,16 +295,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       return false;
   }
 
-  return process_record_secrets(keycode, record);
+  return true;
 }
 
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
+  switch (keycode) {
+    //case A_MT:
+    //case HRM_COMM:
+    // case A_MT:
+    // case SCLN_MT:
+    //   return TAPPING_TERM + 25;
+    // case LT_2:
+    // case LT_3:
+    //   return TAPPING_TERM - 100;
+    default:
+      return TAPPING_TERM;
+  }
+}
+#endif  // TAPPING_TERM_PER_KEY
+
+#ifdef FLOW_TAP_TERM
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
+                           uint16_t prev_keycode) {
+  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+    switch (keycode) {
+      // case A_MT:
+      // case SCLN_MT:
+      //   return FLOW_TAP_TERM + 70;
+      default:
+        return FLOW_TAP_TERM;
+    }
+  }
+  return 0;
+}
+#endif  // FLOW_TAP_TERM
+
+#ifdef CHORDAL_HOLD
 bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
                       uint16_t other_keycode, keyrecord_t* other_record) {
-  // Exceptionally allow some one-handed chords for hotkeys.
+  // Exceptionally allow some one-handed chords for hotkeys, mouse usage and on
+  // thumb
   switch (tap_hold_keycode) {
-    case WM2:
-      return true;
+    // case LT_2:
+    // case LT_3:
+    // // case SCLN_MT:
+    //   return true;
+    // case L_MT:
+    //   switch (other_keycode) {
+    //     case KC_H:
+    //     case KC_L:
+    //       return true;
+    //   }
+    //   break;
   }
-  // Otherwise defer to the opposite hands rule.
+
   return get_chordal_hold_default(tap_hold_record, other_record);
 }
+#endif  // CHORDAL_HOLD
