@@ -237,6 +237,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       case KC_SEC4:
         SEND_STRING(SEC4);
         return false;
+      case KC_SEC5:
+        SEND_STRING(SEC5);
+        return false;
       case M_BLOCK:
         SEND_STRING("```");
         return false;
