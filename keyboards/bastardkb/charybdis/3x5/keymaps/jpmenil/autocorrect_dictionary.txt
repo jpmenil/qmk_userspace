@@ -7,6 +7,7 @@
 :addin:             -> adding
 :adn:               -> and
 :aganist            -> against
+:agetn:             -> agent
 :agian              -> again
 :agin               -> again
 :agre:              -> agree
@@ -20,15 +21,20 @@ andd:               -> and
 :aslo:              -> also
 :asthe              -> as the
 :atthe              -> at the
+:builded:           -> built
+:chek:              -> check
 :choses             -> chooses
+:doen:              -> done
 :eratic             -> erratic
 :esle               -> else
+:grafan:            -> grafana
 :grammer            -> grammar
 :gt:                -> git
 :guage              -> gauge
 :haev               -> have
 :halp:              -> help
 :hapen              -> happen
+:hte:               -> the
 :hten:              -> then
 :htere              -> there
 :hting              -> thing
@@ -41,6 +47,7 @@ andd:               -> and
 :lsat               -> last
 :lveo               -> love
 :lvoe               -> love
+:nexta:             -> next
 :nto:               -> not
 :ocuntry            -> country
 :ocur               -> occur
@@ -53,6 +60,8 @@ andd:               -> and
 :oposition          -> opposition
 :otehr              -> other
 :owrk               -> work
+:paht:              -> path
+:painfull:          -> painful
 :pased              -> passed
 :peice              -> piece
 :peom:              -> poem
@@ -61,8 +70,11 @@ andd:               -> and
 :poulation          -> population
 :quitted            -> quit
 :repid              -> rapid
+:reviw:             -> review
 :rference           -> reference
+:rigth:             -> right
 :scoll:             -> scroll
+:shoul:             -> should
 :sieze              -> seize
 :smae:              -> same
 :smoe:              -> some
@@ -87,6 +99,7 @@ andd:               -> and
 :th:                -> the
 :the:the:           -> the
 :theri:             -> their
+:theses:            -> these
 :thier              -> their
 :thn:               -> then
 :thna:              -> than
@@ -113,16 +126,22 @@ andd:               -> and
 :uise               -> use
 :undre:             -> under
 :usally             -> usually
+:usefull:           -> useful
 :veyr:              -> very
 :villian            -> villain
 :villin:            -> villain
 :vyer:              -> very
 :vyre:              -> very
 :waht:              -> what
+:whqat:             -> what
+:wiat:              -> wait
+:wiht:              -> with
+:wnat:              -> want
 :wrok:              -> work
 :wtih:              -> with
 :yaer               -> year
 :yera               -> year
+:yhou:              -> you
 :yrea               -> year
 :ytou:              -> you
 :yuo:               -> you
@@ -316,6 +335,7 @@ alomst              -> almost
 alotted             -> allotted
 alowed              -> allowed
 alowing             -> allowing
+alreay              -> already
 alreayd             -> already
 alsot               -> also
 alternitives        -> alternatives
@@ -371,6 +391,7 @@ anulled             -> annulled
 anwsered            -> answered
 anyhwere            -> anywhere
 anyother            -> any other
+anyting             -> anything
 anytying            -> anything
 aparent             -> apparent
 aparment            -> apartment
@@ -588,6 +609,7 @@ bizzare             -> bizarre
 blaim               -> blame
 blessure            -> blessing
 blitzkreig          -> Blitzkrieg
+blockign            -> blocking
 bodydbuilder        -> bodybuilder
 bombardement        -> bombardment
 bombarment          -> bombardment
@@ -1023,6 +1045,7 @@ denegrating         -> denigrating
 densly              -> densely
 deparment           -> department
 dependance          -> dependence
+dependancies        -> dependencies
 dependancy          -> dependency
 deriviated          -> derived
 derivitive          -> derivative
@@ -1042,6 +1065,7 @@ desicion            -> decision
 deside:             -> decide
 desigining          -> designing
 desinations         -> destinations
+desing              -> design
 desintegrated       -> disintegrated
 desintegration      -> disintegration
 desireable          -> desirable
@@ -2166,6 +2190,7 @@ oftenly             -> often
 omlette             -> omelette
 omniverous          -> omnivorous
 omre                -> more
+onelienr            -> oneliner
 openess             -> openness
 operaotr            -> operator
 oportunity          -> opportunity
@@ -2786,6 +2811,7 @@ scientis:           -> scientist
 scince              -> science
 scinece             -> science
 scirpt              -> script
+scritp              -> script
 seach               -> search
 secratary           -> secretary
 secretery           -> secretary
@@ -2801,6 +2827,7 @@ seperat:            -> separate
 seperate            -> separate
 sequnce             -> sequence
 sergent             -> sergeant
+sesssion            -> session
 settelement         -> settlement
 settlment           -> settlement
 severeal            -> several
@@ -2846,8 +2873,10 @@ sofware             -> software
 solatary            -> solitary
 soley               -> solely
 soliders            -> soldiers
+somehting           -> something
 somehwat            -> somewhat
 somene              -> someone
+somethng            -> something
 somtimes            -> sometimes
 somwhere            -> somewhere
 sophicated          -> sophisticated
@@ -2909,6 +2938,9 @@ studdy              -> study
 studing             -> studying
 stuggling           -> struggling
 sturcture           -> structure
+subagetn            -> subagent
+subagetns           -> subagents
+subagnet            -> subagent
 subdivisio:         -> subdivision
 subjudgation        -> subjugation
 submachne           -> submachine
@@ -3032,6 +3064,8 @@ upddate             -> update
 ultimely            -> ultimately
 unahppy             -> unhappy
 unanymous           -> unanimous
+undersatand         -> understand
+undertand           -> understand
 undoubtely          -> undoubtedly
 unecessary          -> unnecessary
 unqiue              -> unique
@@ -3091,6 +3125,7 @@ whlch               -> which
 widht               -> width
 wierd               -> weird
 wihch               -> which
+workign             -> working
 worls               -> world
 woudl               -> would
 wriet               -> write
